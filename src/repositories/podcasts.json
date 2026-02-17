@@ -3,24 +3,37 @@
     "podcastName": "flow",
     "episode": "CBUM - Flow #319",
     "videoId": "pQSuQmUfS30",
-    "categories": ["saúde", "esporte", "bodybuilder"]
+    "categories": [
+      "saúde",
+      "esporte",
+      "bodybuilder"
+    ]
   },
   {
     "podcastName": "flow",
     "episode": "RUBENS BARRICHELLO - Flow #339",
     "videoId": "4KDGTdiOV4I",
-    "categories": ["esporte", "corrida"]
+    "categories": [
+      "esporte",
+      "corrida"
+    ]
   },
   {
-    "podcastName": "flow",
-    "episode": "Felipão - Flow #339",
-    "videoId": "00000",
-    "categories": ["esporte", "programação"]
+    "podcastName": "SENAI São Caetano",
+    "episode": "Dominando Bun e TypeScript",
+    "videoId": "redes-2026-v1",
+    "categories": [
+      "tecnologia",
+      "estudo",
+      "servidores"
+    ]
   },
   {
-    "podcastName": "venus",
-    "episode": "Xuxa",
-    "videoId": "00000",
-    "categories": ["humor"]
+    "podcastName": "Podcast do M4",
+    "episode": "Testando UUID",
+    "categories": [
+      "tech"
+    ],
+    "videoId": "11a5f278-3f0a-4f03-a9f4-7df6acc1df80"
   }
 ]

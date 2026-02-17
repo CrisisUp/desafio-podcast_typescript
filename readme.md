@@ -1,68 +1,89 @@
-# Podcast Manager
+# 🎙️ Podcast Manager - API Style Netflix
 
-## Descrição
+## 📝 Descrição
 
-O Podcast Manager é uma aplicação inspirada no estilo da Netflix, que permite centralizar diferentes episódios de podcasts separados por categoria. Este projeto visa facilitar o acesso e a organização de episódios de podcasts em formato de vídeo, proporcionando uma experiência de navegação intuitiva e agradável para os usuários.
+O **Podcast Manager** é uma aplicação inspirada na interface e organização da Netflix, projetada para centralizar e organizar episódios de podcasts em formato de vídeo. O objetivo principal é proporcionar uma experiência de navegação intuitiva, permitindo que os usuários explorem conteúdos categorizados e gerenciem sua própria biblioteca de mídia.
 
-## Funcionalidades
+Este projeto foi aprimorado durante o curso de **Técnico de Redes no SENAI São Caetano**, focando em performance de rede, persistência de dados e arquitetura de microserviços.
 
-- **Listar os episódios de podcasts em sessões de categorias:** Os episódios são organizados em categorias como saúde, bodybuilder, mentalidade e humor, permitindo aos usuários explorar facilmente os conteúdos disponíveis.
-- **Filtrar episódios por nome de podcast:** Os usuários podem realizar buscas específicas por nome de podcast, facilitando o acesso aos episódios desejados.
+---
 
-## Implementação
+## 🚀 Tecnologias e Infraestrutura
 
-### Listar os episódios de podcasts em sessões de categorias
+Para este projeto, migramos para um stack de alta performance:
 
-- **Endpoint:** `GET /list`
-- **Descrição:** Retorna uma lista de episódios de podcasts organizados por categorias.
-- **Exemplo de resposta:**
+* **Runtime:** [Bun](https://bun.sh/) - Utilizado para execução ultra-rápida e gerenciamento de pacotes, substituindo o Node.js/Tsup.
+* **Linguagem:** TypeScript - Tipagem forte para garantir a integridade dos dados trafegados.
+* **Hardware:** Executado em arquitetura ARM (**Apple M4 Chip**) no macOS Tahoe.
+* **Persistência:** Banco de dados baseado em arquivos JSON com escrita atômica (`Bun.write`).
 
+---
+
+## ✨ Funcionalidades
+
+* **Navegação Estilo Streaming:** Episódios organizados por categorias (saúde, esporte, tecnologia, etc).
+* **Busca Dinâmica:** Filtre episódios por nome de podcast via Query Params.
+* **Gerenciamento de Conteúdo (CRUD):** Adicione novos episódios ou remova conteúdos obsoletos em tempo real.
+* **ID Único (UUID):** Geração automática de identificadores universais para cada novo registro.
+* **Monitoramento de Rede:** Logs coloridos no terminal para acompanhar cada requisição HTTP (Método, URL e Timestamp).
+
+---
+
+## 📡 API Endpoints
+
+### 1. Listar Podcasts
+
+* **Endpoint:** `GET /api/list`
+* **Descrição:** Retorna todos os episódios cadastrados no sistema.
+
+### 2. Filtrar por Nome
+
+* **Endpoint:** `GET /api/podcasts?p={nome}`
+* **Exemplo:** `GET /api/podcasts?p=flow`
+
+### 3. Adicionar Novo Episódio
+
+* **Endpoint:** `POST /api/list`
+* **Payload:**
+  
 ```json
-[
-  {
-    "podcastName": "flow",
-    "episode": "CBUM - Flow #319",
-    "videoId": "pQSuQmUfS30",
-    "cover": "https://i.ytimg.com/vi/pQSuQmUfS30/maxresdefault.jpg",
-    "link": "https://www.youtube.com/watch?v=pQSuQmUfS30",
-    "categories": ["saúde", "esporte", "bodybuilder"]
-  },
-  {
-    "podcastName": "flow",
-    "episode": "RUBENS BARRICHELLO - Flow #339",
-    "videoId": "4KDGTdiOV4I",
-    "cover": "https://i.ytimg.com/vi/4KDGTdiOV4I/maxresdefault.jpg",
-    "link": "https://www.youtube.com/watch?v=4KDGTdiOV4I",
-    "categories": ["esporte", "corrida"]
-  }
-]
+{
+  "podcastName": "SENAI Redes",
+  "episode": "Dominando Bun no Mac M4",
+  "categories": ["tecnologia", "estudo"]
+}
 ```
 
-### Filtrar episódios por nome de podcast
+### 4. Remover Episódio
 
-- **Endpoint:** `GET /episode?podcastName={nome}`
-- **Descrição:** Retorna uma lista de episódios de podcast com base no nome do podcast fornecido.
-- **Exemplo de requisição:** `GET /episode?podcastName=flow`
+* **Endpoint:** DELETE /api/list?id={uuid}
 
-## Tecnologias Utilizadas
+Descrição: Remove permanentemente um episódio do banco de dados.
 
-- **[TypeScript](https://www.typescriptlang.org/):** Linguagem de programação utilizada para o desenvolvimento do projeto.
-- **[Tsup](https://github.com/egoist/tsup):** Ferramenta de construção e empacotamento para projetos TypeScript.
-- **[Tsx](https://github.com/egoist/tsx):** Compilador TypeScript que suporta a construção de projetos.
-- **[Node.js](https://nodejs.org/):** Ambiente de execução JavaScript que permite executar código JavaScript do lado do servidor.
-- **[@types/node](https://www.npmjs.com/package/@types/node):** Pacote de definições de tipos para Node.js para auxiliar no desenvolvimento com TypeScript.
+## 💻 Como Executar na sua Rede
 
-## Como Utilizar
+Clone o repositório e acesse a pasta do projeto.
 
-1. Clone este repositório.
-2. Instale as dependências usando `npm install`.
-3. Inicie o servidor executando `start:dev`.
-4. Acesse os endpoints fornecidos para listar os episódios de podcasts ou filtrá-los por nome de podcast.
+Instale as dependências (otimizado para Bun):
 
-## Contribuição
+```bash
+bun install
+```
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir problemas ou enviar solicitações de recebimento (pull requests) para melhorar este projeto.
+Inicie o servidor com hot-reload:
 
-## Licença
+```Bash
+bun --watch src/server.ts
+```
 
-Este projeto está licenciado sob a [MIT License](LICENSE).
+* **Logs:** Acompanhe o tráfego no terminal. Linhas verdes indicam leitura, amarelas criação e vermelhas deleção.
+
+## 🏗️ Arquitetura de Camadas
+
+O sistema foi desenhado para ser escalável e fácil de manter:
+
+* **Controllers:** Fazem o "handshake" com as requisições HTTP.
+* **Services:** Onde reside a inteligência e as regras de negócio.
+* **Repositories:** Camada de acesso ao disco (I/O) utilizando o sistema de arquivos do Bun.
+
+Desenvolvido com ☕ e TypeScript por Cristiano - Aluno de Redes @ SENAI São Caetano 🚀

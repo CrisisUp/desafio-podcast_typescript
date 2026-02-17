@@ -69,4 +69,7 @@ export enum StatusCode {
   LoopDetected = 508,
   NotExtended = 510,
   NetworkAuthenticationRequired = 511,
+  NOT_FOUND,
+  BAD_REQUEST,
+  CREATED,
 }
