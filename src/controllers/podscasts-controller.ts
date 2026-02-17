@@ -6,7 +6,7 @@ import { serviceDeleteEpisode } from "../services/delete-episode-service";
 import { ContentType } from "../utils/content-type";
 import { PodcastTransferModel } from "../models/podcast-transfer-model";
 import { PodcastModel } from "../models/podcast-model";
-
+import { serviceUpdatePodcast } from "../services/update-podcast-service";
 const defaultContent = { "Content-Type": ContentType.JSON };
 
 export const getListEpisodes = async (req: IncomingMessage, res: ServerResponse) => {
@@ -38,7 +38,6 @@ export const deletePodcast = async (req: IncomingMessage, res: ServerResponse) =
   res.end(JSON.stringify(content.body));
 };
 
-// AQUI ESTAVA O PROBLEMA: Garantindo o export correto para o POST
 export const postPodcast = async (req: IncomingMessage, res: ServerResponse) => {
   let body = "";
 
@@ -57,5 +56,21 @@ export const postPodcast = async (req: IncomingMessage, res: ServerResponse) => 
       res.writeHead(400, defaultContent);
       res.end(JSON.stringify({ message: "Invalid JSON format" }));
     }
+  });
+};
+
+export const updatePodcast = async (req: IncomingMessage, res: ServerResponse) => {
+  const baseUrl = `http://${req.headers.host}`;
+  const parsedUrl = new URL(req.url || "", baseUrl);
+  const videoId = parsedUrl.searchParams.get("id");
+
+  let body = "";
+  req.on("data", (chunk) => { body += chunk; });
+  req.on("end", async () => {
+    const data = JSON.parse(body);
+    const content = await serviceUpdatePodcast(videoId, data);
+    
+    res.writeHead(content.statusCode, defaultContent);
+    res.end(JSON.stringify(content.body));
   });
 };

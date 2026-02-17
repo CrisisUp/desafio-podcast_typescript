@@ -46,3 +46,20 @@ export const repositoryDeletePodcast = async (videoId: string): Promise<PodcastM
   await Bun.write(file, JSON.stringify(filteredData, null, 2));
   return filteredData;
 };
+
+export const repositoryUpdatePodcast = async (
+  id: string, 
+  updatedData: Partial<PodcastModel>
+): Promise<PodcastModel | undefined> => {
+  const jsonFile: PodcastModel[] = await file.json();
+  const index = jsonFile.findIndex(p => p.videoId === id);
+
+  if (index !== -1) {
+    // Mescla os dados antigos com os novos
+    jsonFile[index] = { ...jsonFile[index], ...updatedData };
+    await Bun.write(file, JSON.stringify(jsonFile, null, 2));
+    return jsonFile[index];
+  }
+
+  return undefined;
+};

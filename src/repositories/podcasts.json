@@ -29,8 +29,8 @@
     ]
   },
   {
-    "podcastName": "Podcast do M4",
-    "episode": "Testando UUID",
+    "podcastName": "SENAI São Caetano - Edição Especial",
+    "episode": "Dominando o CRUD Completo",
     "categories": [
       "tech"
     ],

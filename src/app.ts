@@ -3,7 +3,8 @@ import {
   getListEpisodes, 
   getFilterEpisodes, 
   postPodcast, 
-  deletePodcast 
+  deletePodcast, 
+  updatePodcast
 } from "./controllers/podscasts-controller";
 import { Routes } from "./routes/routes";
 import { HttpMethod } from "./utils/http-methods";
@@ -53,6 +54,11 @@ export const app = async (
     await deletePodcast(request, response);
     return;
   }
+
+  if (method === "PUT" && baseUrl === Routes.LIST) {
+  await updatePodcast(request, response);
+  return;
+}
 
   // --- 404 NOT FOUND ---
   response.writeHead(StatusCode.NOT_FOUND || 404, { "Content-Type": "application/json" });

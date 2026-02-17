@@ -60,6 +60,18 @@ Para este projeto, migramos para um stack de alta performance:
 
 Descrição: Remove permanentemente um episódio do banco de dados.
 
+### 5. Atualizar Episódio
+
+* **Endpoint:** `PUT /api/list?id={uuid}`
+* **Descrição:** Atualiza parcialmente os dados de um podcast existente mantendo os campos não enviados.
+* **Exemplo de Payload:**
+  
+```json
+{
+  "podcastName": "SENAI São Caetano - Edição Especial",
+  "episode": "Dominando o CRUD Completo"
+}
+
 ## 💻 Como Executar na sua Rede
 
 Clone o repositório e acesse a pasta do projeto.
