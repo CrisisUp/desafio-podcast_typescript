@@ -84,11 +84,27 @@ bun install
 
 Inicie o servidor com hot-reload:
 
-```Bash
+```bash
 bun --watch src/server.ts
 ```
 
 * **Logs:** Acompanhe o tráfego no terminal. Linhas verdes indicam leitura, amarelas criação e vermelhas deleção.
+
+## 🐳 Executando com Docker (Recomendado)
+
+Para rodar o projeto em qualquer ambiente sem precisar instalar o Bun manualmente:
+
+1. **Subir o ambiente:**
+
+```bash
+  docker-compose up --build
+```
+
+Encerrar o ambiente:
+
+```bash
+docker-compose down
+```
 
 ## 🏗️ Arquitetura de Camadas
 
